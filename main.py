@@ -7,7 +7,6 @@ from closest_pair import closestpair
 
 
 class MyPaintWidget(Widget):
-
     pairs = []
 
     def on_touch_down(self, touch):
@@ -23,12 +22,13 @@ class MyPaintWidget(Widget):
         self.pairs = []
 
     def run_closest_pair(self):
-        pair = closestpair(self.pairs)
-        with self.canvas:
-            Color((0,0,0), mode='hsv')
-            d = 30
-            Ellipse(pos=(pair[0][0] - d / 2, pair[0][1] - d / 2), size=(d, d))
-            Ellipse(pos=(pair[1][0] - d / 2, pair[1][1] - d / 2), size=(d, d))
+        if len(self.pairs) >= 2:
+            pair = closestpair(self.pairs)
+            with self.canvas:
+                Color((0, 0, 0), mode='hsv')
+                d = 30
+                Ellipse(pos=(pair[0][0] - d / 2, pair[0][1] - d / 2), size=(d, d))
+                Ellipse(pos=(pair[1][0] - d / 2, pair[1][1] - d / 2), size=(d, d))
 
 
 class MyApp(App):
@@ -57,6 +57,7 @@ class MyApp(App):
 
     def run_pair(self, obj):
         self.painter.run_closest_pair()
+
 
 if __name__ == '__main__':
     MyApp().run()
